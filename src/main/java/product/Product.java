@@ -44,7 +44,7 @@ public class Product {
         this.discount = discount;
     }
 
-    public void showProductInfo(){
+    public void showProductInfo() {
         System.out.println(this.name + ", it cost only: " +
                 (this.cost - this.discount) + " PLN. " +
                 this.discount + " PLN discount from " + this.cost + " PLN");

@@ -1,7 +1,9 @@
 package main;
 
+import Strategy.CountDiscountStrategy;
+import Strategy.CountDiscountStrategyFactory;
+import Strategy.DiscountType;
 import product.Product;
-import product.ProductService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,31 +17,37 @@ public class Main {
                 2400.00);
 
         Product productTwo = new Product("Bosch Fridge",
-                "No frost fridge",1400.00);
+                "No frost fridge", 1400.00);
 
         Product productThree = new Product("Electrolux Washing Machine",
-                "Very quiet washing machine",2200.0);
+                "Very quiet washing machine", 2200.0);
 
         Product productFour = new Product("Iron",
-                "Easy to handle!",150.00);
+                "Easy to handle!", 150.00);
 
         List<Product> products =
-                Arrays.asList(productOne,productTwo,productThree,productFour);
+                Arrays.asList(productOne, productTwo, productThree, productFour);
 
+
+        CountDiscountStrategyFactory discountFactory = new CountDiscountStrategyFactory();
+
+        CountDiscountStrategy countDiscountStrategy = discountFactory.getStrategy(DiscountType.CHRISTMAS);
 
         System.out.println("Christmas time ...");
-        products.forEach(p->p.setDiscount(ProductService.christmasDiscount(p.getCost())));
-        products.forEach(p->p.showProductInfo());
+        products.forEach(p -> p.setDiscount(countDiscountStrategy.countDiscount(p.getCost())));
+        products.forEach(p -> p.showProductInfo());
 
+        CountDiscountStrategy countDiscountStrategy2 = discountFactory.getStrategy(DiscountType.NEW_YEAR);
 
         System.out.println("\n\nNew Yer time ...");
-        products.forEach(p->p.setDiscount(ProductService.newYearDiscount(p.getCost())));
-        products.forEach(p->p.showProductInfo());
+        products.forEach(p -> p.setDiscount(countDiscountStrategy2.countDiscount(p.getCost())));
+        products.forEach(p -> p.showProductInfo());
 
+        CountDiscountStrategy countDiscountStrategy3 = discountFactory.getStrategy(DiscountType.EASTER);
 
         System.out.println("\n\nEaster time ...");
-        products.forEach(p->p.setDiscount(ProductService.easterDiscount(p.getCost())));
-        products.forEach(p->p.showProductInfo());
+        products.forEach(p -> p.setDiscount(countDiscountStrategy3.countDiscount(p.getCost())));
+        products.forEach(p -> p.showProductInfo());
 
     }
 }
